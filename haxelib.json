@@ -1,0 +1,16 @@
+{
+    "name": "polarssl",
+    "url" : "https://github.com/MaddinXx/hx-polarssl",
+    "license": "MIT",
+    "tags": ["ssl", "tls", "polarssl", "encryption", "md5", "rsa", "sha"],
+    "description": "Haxe (C++/Neko) language bindings for the PolarSSL library.",
+    "classPath": "api",
+    "dependencies": {
+        "std": ""
+    },
+    "version": "0.0.0",
+    "releasenote": "Starting a new era",
+    "contributors": [
+        "MaddinXx"
+    ]
+}
