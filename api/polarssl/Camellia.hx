@@ -2,10 +2,10 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
+import lib.IllegalArgumentException;
+import lib.IllegalStateException;
 import polarssl.Loader;
 import polarssl.PolarSSLException;
-import std.IllegalArgumentException;
-import std.IllegalStateException;
 
 /**
  * Haxe FFI wrapper class for the PolarSSL Camellia implementation.
@@ -60,11 +60,11 @@ class Camellia
      *
      * @return haxe.io.Bytes the crypted Bytes
      *
+     * @throws lib.IllegalArgumentException if the mode is not supported
+     * @throws lib.IllegalArgumentException if the initialization vector is not 16 bytes long
+     * @throws lib.IllegalArgumentException if the input bytes length is not % 16 == 0
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call raises an error
-     * @throws std.IllegalArgumentException if the mode is not supported
-     * @throws std.IllegalArgumentException if the initialization vector is not 16 bytes long
-     * @throws std.IllegalArgumentException if the input bytes length is not % 16 == 0
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function cryptCbc(mode:Int, iv:Bytes, bytes:Bytes):Bytes
     {
@@ -100,10 +100,10 @@ class Camellia
      *
      * @return haxe.io.Bytes the crypted Bytes
      *
+     * @throws lib.IllegalArgumentException if the mode is not supported
+     * @throws lib.IllegalArgumentException if the input bytes length is not 16
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call raises an error
-     * @throws std.IllegalArgumentException if the mode is not supported
-     * @throws std.IllegalArgumentException if the input bytes length is not 16
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function cryptEcb(mode:Int, bytes:Bytes):Bytes
     {
@@ -129,8 +129,8 @@ class Camellia
      *
      * Attn: The Camellia instance can no longer be used after calling this method.
      *
+     * @throws lib.IllegalStateException  if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call throws an error
-     * @throws std.IllegalStateException  if the instance has already been freed
      */
     public function free():Void
     {
@@ -174,9 +174,9 @@ class Camellia
      *
      * @param haxe.io.Bytes key the secret key to set
      *
+     * @throws lib.IllegalArgumentException if the bytes are not a valid Camellia key
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call raises an error
-     * @throws std.IllegalArgumentException if the bytes are not a valid Camellia key
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function setDecryptionKey(key:Bytes):Void
     {
@@ -199,9 +199,9 @@ class Camellia
      *
      * @param haxe.io.Bytes key the secret key to set
      *
+     * @throws lib.IllegalArgumentException if the bytes are not a valid Camellia key
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call raises an error
-     * @throws std.IllegalArgumentException if the bytes are not a valid Camellia key
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function setEncryptionKey(key:Bytes):Void
     {

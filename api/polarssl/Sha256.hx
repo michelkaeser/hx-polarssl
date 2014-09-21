@@ -2,9 +2,9 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
+import lib.io.Path;
 import polarssl.Loader;
 import polarssl.PolarSSLException;
-import std.io.Path;
 
 /**
  * Haxe FFI wrapper class for the PolarSSL SHA-256 implementation.
@@ -75,7 +75,7 @@ class SHA256
      *
      * Attn: To get the sum as a String, use toHex() on the returned Bytes.
      *
-     * @param std.io.Path path  the file's path
+     * @param lib.io.Path path  the file's path
      * @param Bool        is224 either 224 bit SHA should be used or not
      *
      * @return haxe.io.Bytes the sum Bytes

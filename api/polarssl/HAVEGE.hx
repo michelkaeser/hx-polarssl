@@ -2,10 +2,10 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
+import lib.IllegalArgumentException;
+import lib.IllegalStateException;
 import polarssl.Loader;
 import polarssl.PolarSSLException;
-import std.IllegalArgumentException;
-import std.IllegalStateException;
 
 /**
  * Haxe FFI wrapper class for the PolarSSL HAVEGE implementation.
@@ -46,8 +46,8 @@ class HAVEGE
      *
      * Attn: The HAVEGE instance can no longer be used afterwards.
      *
+     * @throws lib.IllegalStateException  if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call throws an error
-     * @throws std.IllegalStateException  if the instance has already been freed
      */
     public function free():Void
     {
@@ -70,9 +70,9 @@ class HAVEGE
      *
      * @return haxe.io.Bytes the random Bytes
      *
+     * @throws lib.IllegalArgumentException if the number of random Bytes to generate is less than zero
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call throws an error
-     * @throws std.IllegalArgumentException if the number of random Bytes to generate is less than zero
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function random(nbytes:Int):Bytes
     {

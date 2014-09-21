@@ -2,10 +2,10 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
+import lib.IllegalArgumentException;
+import lib.IllegalStateException;
 import polarssl.Loader;
 import polarssl.PolarSSLException;
-import std.IllegalArgumentException;
-import std.IllegalStateException;
 
 /**
  * Haxe FFI wrapper class for the PolarSSL Blowfish implementation.
@@ -58,11 +58,11 @@ class Blowfish
      *
      * @return haxe.io.Bytes the crypted Bytes
      *
+     * @throws lib.IllegalArgumentException if the mode is not supported
+     * @throws lib.IllegalArgumentException if the initialization vector is not 8 bytes long
+     * @throws lib.IllegalArgumentException if the input bytes length is not % 8 == 0
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call raises an error
-     * @throws std.IllegalArgumentException if the mode is not supported
-     * @throws std.IllegalArgumentException if the initialization vector is not 8 bytes long
-     * @throws std.IllegalArgumentException if the input bytes length is not % 8 == 0
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function cryptCbc(mode:Int, iv:Bytes, bytes:Bytes):Bytes
     {
@@ -98,10 +98,10 @@ class Blowfish
      *
      * @return haxe.io.Bytes the crypted Bytes
      *
+     * @throws lib.IllegalArgumentException if the mode is not supported
+     * @throws lib.IllegalArgumentException if the input bytes length is not 8
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call raises an error
-     * @throws std.IllegalArgumentException if the mode is not supported
-     * @throws std.IllegalArgumentException if the input bytes length is not 8
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function cryptEcb(mode:Int, bytes:Bytes):Bytes
     {
@@ -127,8 +127,8 @@ class Blowfish
      *
      * Attn: The Blowfish instance can no longer be used after calling this method.
      *
+     * @throws lib.IllegalStateException  if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call throws an error
-     * @throws std.IllegalStateException  if the instance has already been freed
      */
     public function free():Void
     {
@@ -149,9 +149,9 @@ class Blowfish
      *
      * @param haxe.io.Bytes key the secret key
      *
+     * @throws lib.IllegalArgumentException if the key is not valid (no less/much bits)
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call raises an error
-     * @throws std.IllegalArgumentException if the key is not valid (no less/much bits)
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function setKey(key:Bytes):Void
     {

@@ -2,9 +2,9 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
+import lib.io.Path;
 import polarssl.Loader;
 import polarssl.PolarSSLException;
-import std.io.Path;
 
 /**
  * Haxe FFI wrapper class for the PolarSSL MD5 implementation.
@@ -67,7 +67,7 @@ class MD5
      *
      * Attn: To get the sum as a String, use toHex() on the returned Bytes.
      *
-     * @param std.io.Path path the file's path
+     * @param lib.io.Path path the file's path
      *
      * @return haxe.io.Bytes the sum Bytes
      *

@@ -2,12 +2,12 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
+import lib.IllegalArgumentException;
+import lib.IllegalStateException;
 import polarssl.MDType;
 import polarssl.PKCS;
 import polarssl.Loader;
 import polarssl.PolarSSLException;
-import std.IllegalArgumentException;
-import std.IllegalStateException;
 
 /**
  * Haxe FFI wrapper class for the PolarSSL RSA implementation.
@@ -64,7 +64,7 @@ class RSA
     /**
      * Property to access the public exponent.
      *
-     * @see polarss.RSA.D
+     * @see polarssl.RSA.D
      *
      * @var Bytes
      */
@@ -73,7 +73,7 @@ class RSA
     /**
      * Property to access the public modulus.
      *
-     * @see polarss.RSA.D
+     * @see polarssl.RSA.D
      *
      * @var Bytes
      */
@@ -82,7 +82,7 @@ class RSA
     /**
      * Property to access the 1st prime factor.
      *
-     * @see polarss.RSA.D
+     * @see polarssl.RSA.D
      *
      * @var Bytes
      */
@@ -91,7 +91,7 @@ class RSA
     /**
      * Property to access the 2nd prime factor.
      *
-     * @see polarss.RSA.D
+     * @see polarssl.RSA.D
      *
      * @var Bytes
      */
@@ -104,8 +104,8 @@ class RSA
      * @param polarssl.PKCS padding the padding scheme to use
      * @param Null<Int>     hashId  the hash identifier
      *
+     * @throws lib.IllegalArgumentException if PKCS.V21 is used but no hashId is provided
      * @throws polarssl.PolarSSLException   if the RSA context init fails
-     * @throws std.IllegalArgumentException if PKCS.V21 is used but no hashId is provided
      */
     public function new(padding:PKCS, ?hashId:Int):Void
     {
@@ -129,7 +129,7 @@ class RSA
      *
      * @return Bool
      *
-     * @throws std.IllegalStateException if the instance has already been freed
+     * @throws lib.IllegalStateException if the instance has already been freed
      */
     public function checkPublicKey():Bool
     {
@@ -156,7 +156,7 @@ class RSA
      *
      * @return Bool
      *
-     * @throws std.IllegalStateException if the instance has already been freed
+     * @throws lib.IllegalStateException if the instance has already been freed
      */
     public function checkPrivateKey():Bool
     {
@@ -186,9 +186,9 @@ class RSA
      *
      * @return haxe.io.Bytes the decrypted Bytes
      *
+     * @throws lib.IllegalArgumentException if the RSA mode is not PUBLIC or PRIVATE
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call raises an error
-     * @throws std.IllegalArgumentException if the RSA mode is not PUBLIC or PRIVATE
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function decrypt(mode:Int, bytes:Bytes):Bytes
     {
@@ -214,9 +214,9 @@ class RSA
      *
      * @return haxe.io.Bytes the encrypted Bytes
      *
+     * @throws lib.IllegalArgumentException if the RSA mode is not PUBLIC or PRIVATE
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call raises an error
-     * @throws std.IllegalArgumentException if the RSA mode is not PUBLIC or PRIVATE
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function encrypt(mode:Int, bytes:Bytes):Bytes
     {
@@ -257,8 +257,8 @@ class RSA
      *
      * Attn: The RSA instance can no longer be used after calling this method.
      *
+     * @throws lib.IllegalStateException  if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
-     * @throws std.IllegalStateException  if the instance has already been freed
      */
     public function free():Void
     {
@@ -280,10 +280,10 @@ class RSA
      * @param Int nbits the size in bits of the key
      * @param Int exponent the public exponent to use
      *
+     * @throws lib.IllegalArgumentException if the keysize is less or equal to zero
+     * @throws lib.IllegalArgumentException if the public exponent is negative
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call raises an error
-     * @throws std.IllegalArgumentException if the keysize is less or equal to zero
-     * @throws std.IllegalArgumentException if the public exponent is negative
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function generateKeys(nbits:Int, exponent:Int):Void
     {
@@ -309,8 +309,8 @@ class RSA
      *
      * @return haxe.io.Bytes
      *
+     * @throws lib.IllegalStateException  if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
-     * @throws std.IllegalStateException  if the instance has already been freed
      */
     private function get_D():Bytes
     {
@@ -330,8 +330,8 @@ class RSA
      *
      * @return haxe.io.Bytes
      *
+     * @throws lib.IllegalStateException  if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
-     * @throws std.IllegalStateException  if the instance has already been freed
      */
     private function get_E():Bytes
     {
@@ -351,8 +351,8 @@ class RSA
      *
      * @return haxe.io.Bytes
      *
+     * @throws lib.IllegalStateException  if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
-     * @throws std.IllegalStateException  if the instance has already been freed
      */
     private function get_N():Bytes
     {
@@ -372,8 +372,8 @@ class RSA
      *
      * @return haxe.io.Bytes
      *
+     * @throws lib.IllegalStateException  if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
-     * @throws std.IllegalStateException  if the instance has already been freed
      */
     private function get_P():Bytes
     {
@@ -393,8 +393,8 @@ class RSA
      *
      * @return haxe.io.Bytes
      *
+     * @throws lib.IllegalStateException  if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
-     * @throws std.IllegalStateException  if the instance has already been freed
      */
     private function get_Q():Bytes
     {
@@ -418,10 +418,10 @@ class RSA
      *
      * @return haxe.io.Bytes the signature Bytes
      *
+     * @throws lib.IllegalArgumentException if the mode is not RSA.PUBLIC or RSA.PRIVATE
+     * @throws lib.IllegalArgumentException if MDType.NONE is used with no hash identifier
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call raises an error
-     * @throws std.IllegalArgumentException if the mode is not RSA.PUBLIC or RSA.PRIVATE
-     * @throws std.IllegalArgumentException if MDType.NONE is used with no hash identifier
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function sign(mode:Int, type:MDType, ?hash:Bytes):Bytes
     {
@@ -475,8 +475,8 @@ class RSA
      * @param polarssl.PKCS padding the padding scheme to use
      * @param Int           hashId  the hash identifier
      *
+     * @throws lib.IllegalStateException  if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
-     * @throws std.IllegalStateException  if the instance has already been freed
      */
     public function setPadding(padding:PKCS, hashId:Int):Void
     {
@@ -501,10 +501,10 @@ class RSA
      *
      * @return Bool true if signature is valid
      *
+     * @throws lib.IllegalArgumentException if mode is neither RSA.PUBLIC nor RSA.PRIVATE
+     * @throws lib.IllegalArgumentException if type is MDType.NONE but the hash is null
+     * @throws lib.IllegalStateException    if the instance has already been freed
      * @throws polarssl.PolarSSLException   if the FFI call raises an error
-     * @throws std.IllegalArgumentException if mode is neither RSA.PUBLIC nor RSA.PRIVATE
-     * @throws std.IllegalArgumentException if type is MDType.NONE but the hash is null
-     * @throws std.IllegalStateException    if the instance has already been freed
      */
     public function verify(mode:Int, type:MDType, signature:Bytes, ?hash:Bytes):Bool
     {
