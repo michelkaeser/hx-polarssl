@@ -2,7 +2,7 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
-import lib.IllegalStateException;
+import hext.IllegalStateException;
 import polarssl.Loader;
 import polarssl.PolarSSLException;
 
@@ -49,13 +49,13 @@ class ARC4
      *
      * @return haxe.io.Bytes the crypted input Bytes
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call throws an error
      */
     public function crypt(bytes:Bytes):Bytes
     {
         if (this.context == null) {
-            throw new IllegalStateException("No ARC4 context available");
+            throw new IllegalStateException("No ARC4 context available.");
         }
 
         try {
@@ -70,13 +70,13 @@ class ARC4
      *
      * Attn: The ARC4 instance can no longer be used after calling this method.
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call throws an error
      */
     public function free():Void
     {
         if (this.context == null) {
-            throw new IllegalStateException("No ARC4 context available");
+            throw new IllegalStateException("No ARC4 context available.");
         }
 
         try {
@@ -115,13 +115,13 @@ class ARC4
      *
      * @param haxe.io.Bytes key the secret key in Bytes
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call throws an error
      */
     public function setup(key:Bytes):Void
     {
         if (this.context == null) {
-            throw new IllegalStateException("No ARC4 context available");
+            throw new IllegalStateException("No ARC4 context available.");
         }
 
         try {

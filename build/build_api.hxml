@@ -2,7 +2,7 @@
 --next
 -cp  api
 -cpp bin/cpp
--lib lib
+-lib hext-core
 -xml bin/cpp.xml
 --macro "include('polarssl')"
 --no-output
@@ -11,7 +11,7 @@
 --next
 -cp   api
 -neko bin/main.n
--lib  lib
+-lib  hext-core
 -xml  bin/neko.xml
 --macro "include('polarssl')"
 --no-output

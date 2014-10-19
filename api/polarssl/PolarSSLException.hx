@@ -1,7 +1,7 @@
 package polarssl;
 
 import haxe.PosInfos;
-import lib.Exception;
+import hext.Exception;
 
 /**
  * Exceptions to be thrown when Exceptions from the C FFI need to be wrapped
@@ -12,7 +12,7 @@ class PolarSSLException extends Exception
     /**
      * @{inherit}
      */
-    public function new(msg:Dynamic = "Uncaught PolarSSL exception", ?info:PosInfos):Void
+    public function new(msg:Dynamic = "Uncaught PolarSSL exception.", ?info:PosInfos):Void
     {
         super(msg, info);
     }

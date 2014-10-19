@@ -2,7 +2,7 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
-import lib.io.Path;
+import hext.io.Path;
 import polarssl.Loader;
 import polarssl.PolarSSLException;
 
@@ -75,7 +75,7 @@ class SHA256
      *
      * Attn: To get the sum as a String, use toHex() on the returned Bytes.
      *
-     * @param lib.io.Path path  the file's path
+     * @param hext.io.Path path  the file's path
      * @param Bool        is224 either 224 bit SHA should be used or not
      *
      * @return haxe.io.Bytes the sum Bytes

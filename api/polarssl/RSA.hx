@@ -2,8 +2,8 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
-import lib.IllegalArgumentException;
-import lib.IllegalStateException;
+import hext.IllegalArgumentException;
+import hext.IllegalStateException;
 import polarssl.MDType;
 import polarssl.PKCS;
 import polarssl.Loader;
@@ -57,7 +57,7 @@ class RSA
      *   - Use Std.parseInt("0x" + .toHex()) to get the property as an Int
      *     This may lead to wrong numbers however (overflow, sign bit, etc.)
      *
-     * @var Bytes
+     * @var haxe.io.Bytes
      */
     public var D(get, never):Bytes;
 
@@ -66,7 +66,7 @@ class RSA
      *
      * @see polarssl.RSA.D
      *
-     * @var Bytes
+     * @var haxe.io.Bytes
      */
     public var E(get, never):Bytes;
 
@@ -75,7 +75,7 @@ class RSA
      *
      * @see polarssl.RSA.D
      *
-     * @var Bytes
+     * @var haxe.io.Bytes
      */
     public var N(get, never):Bytes;
 
@@ -84,7 +84,7 @@ class RSA
      *
      * @see polarssl.RSA.D
      *
-     * @var Bytes
+     * @var haxe.io.Bytes
      */
     public var P(get, never):Bytes;
 
@@ -93,7 +93,7 @@ class RSA
      *
      * @see polarssl.RSA.D
      *
-     * @var Bytes
+     * @var haxe.io.Bytes
      */
     public var Q(get, never):Bytes;
 
@@ -104,13 +104,13 @@ class RSA
      * @param polarssl.PKCS padding the padding scheme to use
      * @param Null<Int>     hashId  the hash identifier
      *
-     * @throws lib.IllegalArgumentException if PKCS.V21 is used but no hashId is provided
-     * @throws polarssl.PolarSSLException   if the RSA context init fails
+     * @throws hext.IllegalArgumentException if PKCS.V21 is used but no hashId is provided
+     * @throws polarssl.PolarSSLException    if the RSA context init fails
      */
     public function new(padding:PKCS, ?hashId:Int):Void
     {
         if (padding == PKCS.V21 && hashId == null) {
-            throw new IllegalArgumentException("The selected padding scheme needs a hashId");
+            throw new IllegalArgumentException("The selected padding scheme needs a hashId.");
         }
 
         if (hashId == null) {
@@ -129,12 +129,12 @@ class RSA
      *
      * @return Bool
      *
-     * @throws lib.IllegalStateException if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      */
     public function checkPublicKey():Bool
     {
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         var ret:Int;
@@ -156,12 +156,12 @@ class RSA
      *
      * @return Bool
      *
-     * @throws lib.IllegalStateException if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      */
     public function checkPrivateKey():Bool
     {
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         var ret:Int;
@@ -186,17 +186,17 @@ class RSA
      *
      * @return haxe.io.Bytes the decrypted Bytes
      *
-     * @throws lib.IllegalArgumentException if the RSA mode is not PUBLIC or PRIVATE
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the RSA mode is not PUBLIC or PRIVATE
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function decrypt(mode:Int, bytes:Bytes):Bytes
     {
         if (mode != RSA.PUBLIC && mode != RSA.PRIVATE) {
-            throw new IllegalArgumentException("Invalid RSA mode selected");
+            throw new IllegalArgumentException("Invalid RSA mode selected.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         try {
@@ -214,17 +214,17 @@ class RSA
      *
      * @return haxe.io.Bytes the encrypted Bytes
      *
-     * @throws lib.IllegalArgumentException if the RSA mode is not PUBLIC or PRIVATE
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the RSA mode is not PUBLIC or PRIVATE
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function encrypt(mode:Int, bytes:Bytes):Bytes
     {
         if (mode != RSA.PUBLIC && mode != RSA.PRIVATE) {
-            throw new IllegalArgumentException("Invalid RSA mode selected");
+            throw new IllegalArgumentException("Invalid RSA mode selected.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         try {
@@ -257,13 +257,13 @@ class RSA
      *
      * Attn: The RSA instance can no longer be used after calling this method.
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
      */
     public function free():Void
     {
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         try {
@@ -280,21 +280,21 @@ class RSA
      * @param Int nbits the size in bits of the key
      * @param Int exponent the public exponent to use
      *
-     * @throws lib.IllegalArgumentException if the keysize is less or equal to zero
-     * @throws lib.IllegalArgumentException if the public exponent is negative
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the keysize is less or equal to zero
+     * @throws hext.IllegalArgumentException if the public exponent is negative
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function generateKeys(nbits:Int, exponent:Int):Void
     {
         if (nbits <= 0) {
-            throw new IllegalArgumentException("Keysize cannot be <= 0");
+            throw new IllegalArgumentException("Keysize cannot be <= 0.");
         }
         if (exponent < 0) {
-            throw new IllegalArgumentException("Exponent cannot be negative");
+            throw new IllegalArgumentException("Exponent cannot be negative.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         try {
@@ -309,13 +309,13 @@ class RSA
      *
      * @return haxe.io.Bytes
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
      */
     private function get_D():Bytes
     {
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         try {
@@ -330,13 +330,13 @@ class RSA
      *
      * @return haxe.io.Bytes
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
      */
     private function get_E():Bytes
     {
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         try {
@@ -351,13 +351,13 @@ class RSA
      *
      * @return haxe.io.Bytes
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException  if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
      */
     private function get_N():Bytes
     {
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         try {
@@ -372,13 +372,13 @@ class RSA
      *
      * @return haxe.io.Bytes
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
      */
     private function get_P():Bytes
     {
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         try {
@@ -393,13 +393,13 @@ class RSA
      *
      * @return haxe.io.Bytes
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
      */
     private function get_Q():Bytes
     {
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         try {
@@ -418,21 +418,21 @@ class RSA
      *
      * @return haxe.io.Bytes the signature Bytes
      *
-     * @throws lib.IllegalArgumentException if the mode is not RSA.PUBLIC or RSA.PRIVATE
-     * @throws lib.IllegalArgumentException if MDType.NONE is used with no hash identifier
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the mode is not RSA.PUBLIC or RSA.PRIVATE
+     * @throws hext.IllegalArgumentException if MDType.NONE is used with no hash identifier
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function sign(mode:Int, type:MDType, ?hash:Bytes):Bytes
     {
         if (mode != RSA.PUBLIC && mode != RSA.PRIVATE) {
-            throw new IllegalArgumentException("Invalid RSA mode selected");
+            throw new IllegalArgumentException("Invalid RSA mode selected.");
         }
         if (type == MDType.NONE && hash == null) {
-            throw new IllegalArgumentException("MDType.NONE requires a unique hash identifier");
+            throw new IllegalArgumentException("MDType.NONE requires a unique hash identifier.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         if (hash == null) {
@@ -475,13 +475,13 @@ class RSA
      * @param polarssl.PKCS padding the padding scheme to use
      * @param Int           hashId  the hash identifier
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
      */
     public function setPadding(padding:PKCS, hashId:Int):Void
     {
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         try {
@@ -501,21 +501,21 @@ class RSA
      *
      * @return Bool true if signature is valid
      *
-     * @throws lib.IllegalArgumentException if mode is neither RSA.PUBLIC nor RSA.PRIVATE
-     * @throws lib.IllegalArgumentException if type is MDType.NONE but the hash is null
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if mode is neither RSA.PUBLIC nor RSA.PRIVATE
+     * @throws hext.IllegalArgumentException if type is MDType.NONE but the hash is null
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function verify(mode:Int, type:MDType, signature:Bytes, ?hash:Bytes):Bool
     {
         if (mode != RSA.PUBLIC && mode != RSA.PRIVATE) {
-            throw new IllegalArgumentException("Invalid RSA mode selected");
+            throw new IllegalArgumentException("Invalid RSA mode selected.");
         }
         if (type == MDType.NONE && hash == null) {
-            throw new IllegalArgumentException("MDType.NONE requires a hash identifier");
+            throw new IllegalArgumentException("MDType.NONE requires a hash identifier.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("RSA context not available");
+            throw new IllegalStateException("RSA context not available.");
         }
 
         if (hash == null) {

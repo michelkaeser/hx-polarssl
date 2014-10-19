@@ -5,9 +5,9 @@ package polarssl;
 #elseif neko
     import neko.Lib;
 #else
-    #error "The curl library is only available on C++ and Neko targets"
+    #error "The curl library is only available on C++ and Neko targets."
 #end
-import lib.Error;
+import hext.Error;
 
 /**
  * Haxe FFI loaded class.
@@ -46,7 +46,7 @@ class Loader
      *
      * @return Dynamic
      *
-     * @throws lib.Error if trying to load the function throws an error
+     * @throws hext.Error if trying to load the function throws an error
      */
     public static function load(fn:String, nargs:Int):Dynamic
     {

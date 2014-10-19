@@ -2,8 +2,8 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
-import lib.IllegalArgumentException;
-import lib.IllegalStateException;
+import hext.IllegalArgumentException;
+import hext.IllegalStateException;
 import polarssl.Loader;
 import polarssl.PolarSSLException;
 
@@ -59,25 +59,25 @@ class XTEA
      *
      * @return haxe.io.Bytes the crypted Bytes
      *
-     * @throws lib.IllegalArgumentException if the mode is not supported
-     * @throws lib.IllegalArgumentException if the initialization vector is not 8 bytes long
-     * @throws lib.IllegalArgumentException if the input bytes length is not % 8 == 0
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the mode is not supported
+     * @throws hext.IllegalArgumentException if the initialization vector is not 8 bytes long
+     * @throws hext.IllegalArgumentException if the input bytes length is not % 8 == 0
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function cryptCbc(mode:Int, iv:Bytes, bytes:Bytes):Bytes
     {
         if (mode != XTEA.DECRYPT && mode != XTEA.ENCRYPT) {
-            throw new IllegalArgumentException("Provided XTEA mode is not supported");
+            throw new IllegalArgumentException("Provided XTEA mode is not supported.");
         }
         if (iv == null || iv.length != 8) {
-            throw new IllegalArgumentException("Initialization vector must be 8 bytes");
+            throw new IllegalArgumentException("Initialization vector must be 8 bytes.");
         }
         if (bytes == null || (bytes.length % 8) != 0) {
-            throw new IllegalArgumentException("Input bytes' length must be a multiple of 8");
+            throw new IllegalArgumentException("Input bytes' length must be a multiple of 8.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("No XTEA context available");
+            throw new IllegalStateException("No XTEA context available.");
         }
 
         // create a copy since it will be updated
@@ -99,10 +99,10 @@ class XTEA
      *
      * @return haxe.io.Bytes the crypted Bytes
      *
-     * @throws lib.IllegalArgumentException if the mode is not supported
-     * @throws lib.IllegalArgumentException if the input bytes length is not 8
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the mode is not supported
+     * @throws hext.IllegalArgumentException if the input bytes length is not 8
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function cryptEcb(mode:Int, bytes:Bytes):Bytes
     {
@@ -110,10 +110,10 @@ class XTEA
             throw new IllegalArgumentException("Provided XTEA mode is not supported");
         }
         if (bytes == null || bytes.length != 8) {
-            throw new IllegalArgumentException("ECB block cipher mode requires 8 input bytes");
+            throw new IllegalArgumentException("ECB block cipher mode requires 8 input bytes.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("No XTEA context available");
+            throw new IllegalStateException("No XTEA context available.");
         }
 
         try {
@@ -128,13 +128,13 @@ class XTEA
      *
      * Attn: The XTEA instance can no longer be used after calling this method.
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call raises an error
      */
     public function free():Void
     {
         if (this.context == null) {
-            throw new IllegalStateException("No XTEA context available");
+            throw new IllegalStateException("No XTEA context available.");
         }
 
         try {
@@ -173,17 +173,17 @@ class XTEA
      *
      * @param haxe.io.Bytes key the secret key Bytes (length must be 16)
      *
-     * @throws lib.IllegalArgumentException if the key is not 16 bytes long
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the key is not 16 bytes long
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function setup(key:Bytes):Void
     {
         if (key == null || key.length != 16) {
-            throw new IllegalArgumentException("XTEA keys must be 16 bytes in length");
+            throw new IllegalArgumentException("XTEA keys must be 16 bytes in length.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("No XTEA context available");
+            throw new IllegalStateException("No XTEA context available.");
         }
 
         try {

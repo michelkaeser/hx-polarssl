@@ -2,8 +2,8 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
-import lib.IllegalArgumentException;
-import lib.IllegalStateException;
+import hext.IllegalArgumentException;
+import hext.IllegalStateException;
 import polarssl.Loader;
 import polarssl.PolarSSLException;
 
@@ -60,25 +60,25 @@ class Camellia
      *
      * @return haxe.io.Bytes the crypted Bytes
      *
-     * @throws lib.IllegalArgumentException if the mode is not supported
-     * @throws lib.IllegalArgumentException if the initialization vector is not 16 bytes long
-     * @throws lib.IllegalArgumentException if the input bytes length is not % 16 == 0
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the mode is not supported
+     * @throws hext.IllegalArgumentException if the initialization vector is not 16 bytes long
+     * @throws hext.IllegalArgumentException if the input bytes length is not % 16 == 0
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function cryptCbc(mode:Int, iv:Bytes, bytes:Bytes):Bytes
     {
         if (mode != Camellia.DECRYPT && mode != Camellia.ENCRYPT) {
-            throw new IllegalArgumentException("Provided Camellia mode is not supported");
+            throw new IllegalArgumentException("Provided Camellia mode is not supported.");
         }
         if (iv == null || iv.length != 16) {
-            throw new IllegalArgumentException("Initialization vector must be 16 bytes");
+            throw new IllegalArgumentException("Initialization vector must be 16 bytes.");
         }
         if (bytes == null || (bytes.length % 16) != 0) {
-            throw new IllegalArgumentException("Input bytes' length must be a multiple of 16");
+            throw new IllegalArgumentException("Input bytes' length must be a multiple of 16.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("No Camellia context available");
+            throw new IllegalStateException("No Camellia context available.");
         }
 
         // create a copy since it will be updated
@@ -100,21 +100,21 @@ class Camellia
      *
      * @return haxe.io.Bytes the crypted Bytes
      *
-     * @throws lib.IllegalArgumentException if the mode is not supported
-     * @throws lib.IllegalArgumentException if the input bytes length is not 16
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the mode is not supported
+     * @throws hext.IllegalArgumentException if the input bytes length is not 16
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function cryptEcb(mode:Int, bytes:Bytes):Bytes
     {
         if (mode != Camellia.DECRYPT && mode != Camellia.ENCRYPT) {
-            throw new IllegalArgumentException("Provided Camellia mode is not supported");
+            throw new IllegalArgumentException("Provided Camellia mode is not supported.");
         }
         if (bytes == null || bytes.length != 16) {
-            throw new IllegalArgumentException("ECB block cipher mode requires 16 input bytes");
+            throw new IllegalArgumentException("ECB block cipher mode requires 16 input bytes.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("No Camellia context available");
+            throw new IllegalStateException("No Camellia context available.");
         }
 
         try {
@@ -129,13 +129,13 @@ class Camellia
      *
      * Attn: The Camellia instance can no longer be used after calling this method.
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call throws an error
      */
     public function free():Void
     {
         if (this.context == null) {
-            throw new IllegalStateException("No Camellia context available");
+            throw new IllegalStateException("No Camellia context available.");
         }
 
         try {
@@ -174,17 +174,17 @@ class Camellia
      *
      * @param haxe.io.Bytes key the secret key to set
      *
-     * @throws lib.IllegalArgumentException if the bytes are not a valid Camellia key
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the bytes are not a valid Camellia key
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function setDecryptionKey(key:Bytes):Void
     {
         if (key == null || (key.length != 16 /* 128 / 8 */ && key.length != 24 /* 196 / 8 */&& key.length != 32/* 256 / 8 */)) {
-            throw new IllegalArgumentException("Bytes are not a valid Camellia key");
+            throw new IllegalArgumentException("Bytes are not a valid Camellia key.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("Camellia context not available");
+            throw new IllegalStateException("Camellia context not available.");
         }
 
         try {
@@ -199,17 +199,17 @@ class Camellia
      *
      * @param haxe.io.Bytes key the secret key to set
      *
-     * @throws lib.IllegalArgumentException if the bytes are not a valid Camellia key
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the bytes are not a valid Camellia key
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function setEncryptionKey(key:Bytes):Void
     {
         if (key == null || (key.length != 16 /* 128 / 8 */ && key.length != 24 /* 196 / 8 */&& key.length != 32/* 256 / 8 */)) {
-            throw new IllegalArgumentException("Bytes are not a valid Camellia key");
+            throw new IllegalArgumentException("Bytes are not a valid Camellia key.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("Camellia context not available");
+            throw new IllegalStateException("Camellia context not available.");
         }
 
         try {

@@ -2,8 +2,8 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
-import lib.IllegalArgumentException;
-import lib.IllegalStateException;
+import hext.IllegalArgumentException;
+import hext.IllegalStateException;
 import polarssl.Loader;
 import polarssl.PolarSSLException;
 
@@ -46,13 +46,13 @@ class HAVEGE
      *
      * Attn: The HAVEGE instance can no longer be used afterwards.
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call throws an error
      */
     public function free():Void
     {
         if (this.state == null) {
-            throw new IllegalStateException("No HAVEGE state available");
+            throw new IllegalStateException("No HAVEGE state available.");
         }
 
         try {
@@ -70,17 +70,17 @@ class HAVEGE
      *
      * @return haxe.io.Bytes the random Bytes
      *
-     * @throws lib.IllegalArgumentException if the number of random Bytes to generate is less than zero
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call throws an error
+     * @throws hext.IllegalArgumentException if the number of random Bytes to generate is less than zero
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call throws an error
      */
     public function random(nbytes:Int):Bytes
     {
         if (nbytes < 0) {
-            throw new IllegalArgumentException("Number of bytes cannot be less than zero");
+            throw new IllegalArgumentException("Number of bytes cannot be less than zero.");
         }
         if (this.state == null) {
-            throw new IllegalStateException("No HAVEGE state available");
+            throw new IllegalStateException("No HAVEGE state available.");
         }
 
         var bytes:Bytes;

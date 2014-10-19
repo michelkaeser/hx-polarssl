@@ -2,8 +2,8 @@ package polarssl;
 
 import haxe.io.Bytes;
 import haxe.io.BytesData;
-import lib.IllegalArgumentException;
-import lib.IllegalStateException;
+import hext.IllegalArgumentException;
+import hext.IllegalStateException;
 import polarssl.Loader;
 import polarssl.PolarSSLException;
 
@@ -58,25 +58,25 @@ class Blowfish
      *
      * @return haxe.io.Bytes the crypted Bytes
      *
-     * @throws lib.IllegalArgumentException if the mode is not supported
-     * @throws lib.IllegalArgumentException if the initialization vector is not 8 bytes long
-     * @throws lib.IllegalArgumentException if the input bytes length is not % 8 == 0
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the mode is not supported
+     * @throws hext.IllegalArgumentException if the initialization vector is not 8 bytes long
+     * @throws hext.IllegalArgumentException if the input bytes length is not % 8 == 0
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function cryptCbc(mode:Int, iv:Bytes, bytes:Bytes):Bytes
     {
         if (mode != Blowfish.DECRYPT && mode != Blowfish.ENCRYPT) {
-            throw new IllegalArgumentException("Provided Blowfish mode is not supported");
+            throw new IllegalArgumentException("Provided Blowfish mode is not supported.");
         }
         if (iv == null || iv.length != 8) {
-            throw new IllegalArgumentException("Initialization vector must be 8 bytes");
+            throw new IllegalArgumentException("Initialization vector must be 8 bytes.");
         }
         if (bytes == null || (bytes.length % 8) != 0) {
-            throw new IllegalArgumentException("Input bytes' length must be a multiple of 8");
+            throw new IllegalArgumentException("Input bytes' length must be a multiple of 8.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("No Blowfish context available");
+            throw new IllegalStateException("No Blowfish context available.");
         }
 
         // create a copy since it will be updated
@@ -98,21 +98,21 @@ class Blowfish
      *
      * @return haxe.io.Bytes the crypted Bytes
      *
-     * @throws lib.IllegalArgumentException if the mode is not supported
-     * @throws lib.IllegalArgumentException if the input bytes length is not 8
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the mode is not supported
+     * @throws hext.IllegalArgumentException if the input bytes length is not 8
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function cryptEcb(mode:Int, bytes:Bytes):Bytes
     {
         if (mode != Blowfish.DECRYPT && mode != Blowfish.ENCRYPT) {
-            throw new IllegalArgumentException("Provided Blowfish mode is not supported");
+            throw new IllegalArgumentException("Provided Blowfish mode is not supported.");
         }
         if (bytes == null || bytes.length != 8) {
-            throw new IllegalArgumentException("ECB block cipher mode requires 8 input bytes");
+            throw new IllegalArgumentException("ECB block cipher mode requires 8 input bytes.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("No Blowfish context available");
+            throw new IllegalStateException("No Blowfish context available.");
         }
 
         try {
@@ -127,13 +127,13 @@ class Blowfish
      *
      * Attn: The Blowfish instance can no longer be used after calling this method.
      *
-     * @throws lib.IllegalStateException  if the instance has already been freed
+     * @throws hext.IllegalStateException if the instance has already been freed
      * @throws polarssl.PolarSSLException if the FFI call throws an error
      */
     public function free():Void
     {
         if (this.context == null) {
-            throw new IllegalStateException("No Blowfish context available");
+            throw new IllegalStateException("No Blowfish context available.");
         }
 
         try {
@@ -149,17 +149,17 @@ class Blowfish
      *
      * @param haxe.io.Bytes key the secret key
      *
-     * @throws lib.IllegalArgumentException if the key is not valid (no less/much bits)
-     * @throws lib.IllegalStateException    if the instance has already been freed
-     * @throws polarssl.PolarSSLException   if the FFI call raises an error
+     * @throws hext.IllegalArgumentException if the key is not valid (no less/much bits)
+     * @throws hext.IllegalStateException    if the instance has already been freed
+     * @throws polarssl.PolarSSLException    if the FFI call raises an error
      */
     public function setKey(key:Bytes):Void
     {
         if (key == null || key.length < 4 /* 32 bit */ || key.length > 56 /* 448 bit */) {
-            throw new IllegalArgumentException("Bytes are not a valid Blowfish key");
+            throw new IllegalArgumentException("Bytes are not a valid Blowfish key.");
         }
         if (this.context == null) {
-            throw new IllegalStateException("No Blowfish context available");
+            throw new IllegalStateException("No Blowfish context available.");
         }
 
         try {
