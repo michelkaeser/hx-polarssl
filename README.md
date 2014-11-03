@@ -18,7 +18,7 @@ afterwards, all is magic:
 
     git clone -b develop git@github.com:MaddinXx/hx-polarssl.git
     cd hx-polarssl
-    haxelib run hxcpp -DHXCPP_M64 build/build.hxml
+    haxelib run hxcpp -DHXCPP_M64 build/build_bindings.hxml
 
 > Use `-DHXCPP_M32` if on 32-bit system!
 
